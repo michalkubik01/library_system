@@ -18,7 +18,7 @@ namespace Program {
         }
 
         public void ReturnBook(string isbn) {
-            var book = borrowedBooks.FirstOrDefault(b => b.ISBN == isbn);
+            Book? book = borrowedBooks.FirstOrDefault(b => b.ISBN == isbn);
             if (book != null) {
                 borrowedBooks.Remove(book);
                 book.Borrowed = false;

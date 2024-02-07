@@ -4,24 +4,20 @@
 
             Library library = new Library();
 
-            Console.WriteLine("Prepopulating library with books and members");
-            Console.WriteLine();
+            // Prepopulating library with books and members
 
             library.AddBook(new RegularBook("Harry Potter and the Chamber of Secrets", "J.K. Rowling", "1", 310));
             library.AddBook(new ReferenceBook("History of Modern Poland", "Various Authors", "2", "History"));
             library.AddBook(new DigitalBook("The Hobbit", "J.R.R. Tolkien", "3", "PDF"));
 
-            Console.WriteLine();
-
             library.RegisterMember(new Member("Michal Kubik"));
-
-            Console.WriteLine();
 
             Console.WriteLine("Press any key to begin");
             Console.ReadKey();
 
-            bool running = true;
+            // Program executes in loop here
 
+            bool running = true;
             while (running) {
 
                 Console.Clear();
@@ -80,6 +76,9 @@
         }
 
         static void AddBookToLibrary(Library library) {
+
+            // Takes input and if book type is valid - adds book to the library
+            // Other book fields can be "none"
             
             Console.Write("Enter book title: ");
             string title = Console.ReadLine() ?? "none";
@@ -90,7 +89,7 @@
             Console.Write("Enter book type (regular, reference, digital): ");
             string type = Console.ReadLine() ?? "none";
 
-            switch (type?.ToLower()) {
+            switch (type.ToLower()) {
                 case "regular":
                     Console.Write("Enter number of pages: ");
                     int pages = int.Parse(Console.ReadLine() ?? "0");
@@ -113,12 +112,19 @@
         }
 
         static void RegisterMember(Library library) {
+
+            // Adds new member to the library
+
             Console.Write("Enter member name: ");
             string? name = Console.ReadLine() ?? "";
             library.RegisterMember(new Member(name));
         }
 
         static void LendBook(Library library) {
+
+            // Accepts input of ISBN and member name
+            // Lends book specified by ISBN to the member
+
             Console.Write("Enter book ISBN: ");
             string? isbn = Console.ReadLine() ?? "";
             Console.Write("Enter member name: ");
@@ -127,6 +133,9 @@
         }
 
         static void ListAllBooks(Library library) {
+
+            // Lists all books in the library or none if library is empty
+
             List<Book> books = library.GetAllBooks();
             if (books.Count == 0) {
                 Console.WriteLine("No books available.");
@@ -138,6 +147,9 @@
         }
 
         static void ListAllMembers(Library library) {
+
+            // Lists all members in the library or none if no members in library
+
             List<Member> members = library.GetAllMembers();
             if (members.Count == 0) {
                 Console.WriteLine("No members registered.");
@@ -149,6 +161,10 @@
         }
 
         static void CheckBorrowedBooks(Library library) {
+
+            // Accepts input of member name
+            // Checks if specified member has borrowed books
+
             Console.Write("Enter member name to check borrowed books: ");
             string? memberName = Console.ReadLine();
             Member? member = library.GetAllMembers().FirstOrDefault(m => m.Name.Equals(memberName, StringComparison.OrdinalIgnoreCase));
@@ -170,6 +186,10 @@
         }
 
         static void ReturnBorrowedBook(Library library) {
+
+            // Accepts input of ISBN and member name
+            // If book is borrowed by member, book is returned and can be borrowed again
+
             Console.Write("Enter member name: ");
             string? memberName = Console.ReadLine();
             Member? member = library.GetAllMembers().FirstOrDefault(m => m.Name.Equals(memberName, StringComparison.OrdinalIgnoreCase));
